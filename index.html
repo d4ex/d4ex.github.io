@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Imkerei – Frischer Honig aus eigener Imkerei. Naturbelassen, nachhaltig, regional.">
+    <title>Imkerei – Naturhonig aus eigener Produktion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-honey: #D4A017;
+            --color-honey-light: #F4D03F;
+            --color-amber: #B8860B;
+            --color-dark: #1a1a1a;
+            --color-cream: #FAF7F0;
+            --color-forest: #2D5016;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--color-dark);
+            background: var(--color-cream);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(250, 247, 240, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 3rem;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-cream);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: color 0.4s ease;
+        }
+
+        nav.scrolled .nav-logo {
+            color: var(--color-dark);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-cream);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.4s ease, opacity 0.3s ease;
+            position: relative;
+        }
+
+        nav.scrolled .nav-links a {
+            color: var(--color-dark);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: currentColor;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.3) 0%,
+                rgba(0, 0, 0, 0.1) 40%,
+                rgba(0, 0, 0, 0.5) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--color-cream);
+            padding: 2rem;
+            max-width: 900px;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--color-honey);
+            color: var(--color-dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: 2px;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .hero-cta:hover {
+            background: var(--color-honey-light);
+            transform: translateY(-2px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-cream);
+            opacity: 0.7;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .scroll-indicator svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Sections */
+        .section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .section-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .section-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .section-overlay--left {
+            background: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.7) 0%,
+                rgba(0, 0, 0, 0.4) 50%,
+                rgba(0, 0, 0, 0.1) 100%
+            );
+        }
+
+        .section-overlay--right {
+            background: linear-gradient(
+                to left,
+                rgba(0, 0, 0, 0.7) 0%,
+                rgba(0, 0, 0, 0.4) 50%,
+                rgba(0, 0, 0, 0.1) 100%
+            );
+        }
+
+        .section-overlay--center {
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.5) 0%,
+                rgba(0, 0, 0, 0.3) 50%,
+                rgba(0, 0, 0, 0.6) 100%
+            );
+        }
+
+        .section-content {
+            position: relative;
+            z-index: 2;
+            padding: 6rem 3rem;
+            max-width: 600px;
+            color: var(--color-cream);
+        }
+
+        .section--left .section-content {
+            margin-right: auto;
+            margin-left: 5vw;
+        }
+
+        .section--right .section-content {
+            margin-left: auto;
+            margin-right: 5vw;
+            text-align: right;
+        }
+
+        .section--center .section-content {
+            margin: 0 auto;
+            text-align: center;
+            max-width: 700px;
+        }
+
+        .section-number {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-text {
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.9;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .section-link {
+            display: inline-block;
+            color: var(--color-cream);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding-bottom: 0.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            transition: border-color 0.3s ease, opacity 0.3s ease;
+        }
+
+        .section-link:hover {
+            border-color: var(--color-cream);
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-dark);
+            color: var(--color-cream);
+            padding: 4rem 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            opacity: 0.8;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            nav.scrolled {
+                padding: 0.75rem 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .nav-links a {
+                font-size: 0.75rem;
+            }
+
+            .section-content {
+                padding: 4rem 1.5rem;
+            }
+
+            .section--left .section-content,
+            .section--right .section-content {
+                margin-left: 1.5rem;
+                margin-right: 1.5rem;
+            }
+
+            .section--right .section-content {
+                text-align: left;
+            }
+
+            footer {
+                padding: 3rem 1.5rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="nav">
+        <a href="#" class="nav-logo">Imkerei</a>
+        <ul class="nav-links">
+            <li><a href="#honig">Honig</a></li>
+            <li><a href="#imkerei">Imkerei</a></li>
+            <li><a href="#prozess">Prozess</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <img class="hero-bg" src="img/imker/dd6bcb60-198c-44a4-8b29-efb6d51b228d.jpg" alt="Bienenstock in der Natur">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Imkerei</h1>
+            <p class="hero-subtitle">Naturbelassener Honig aus eigener Produktion</p>
+            <a href="#honig" class="hero-cta">Entdecken</a>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scrollen</span>
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Section 1: Honig -->
+    <section class="section section--left" id="honig">
+        <img class="section-bg" src="img/imker/93d59b6e-deaf-4990-9c90-f50c9b9f9f59.jpg" alt="Frischer Honig">
+        <div class="section-overlay section-overlay--left"></div>
+        <div class="section-content fade-in">
+            <p class="section-number">01</p>
+            <h2 class="section-title">Unser Honig</h2>
+            <p class="section-text">
+                Jeder Löffel unseres Honigs erzählt die Geschichte der Blüten, aus denen er entstanden ist.
+                Von der ersten Frühlingsblüte bis zum späten Sommer – unsere Bienen sammeln Nektar in
+                unberührter Natur und bringen die Vielfalt der Landschaft direkt ins Glas.
+            </p>
+            <p class="section-text">
+                Wir verzichten bewusst auf jede Form der industriellen Verarbeitung. Unser Honig wird
+                schonend geschleudert und niemals erhitzt – so bleiben alle wertvollen Enzyme,
+                Vitamine und das volle Aroma erhalten.
+            </p>
+            <a href="#" class="section-link">Sortiment entdecken</a>
+        </div>
+    </section>
+
+    <!-- Section 2: Imkerei -->
+    <section class="section section--right" id="imkerei">
+        <img class="section-bg" src="img/imker/d3a7a912-28a1-426c-9b7b-ec9d0f915d43.jpg" alt="Bienen bei der Arbeit">
+        <div class="section-overlay section-overlay--right"></div>
+        <div class="section-content fade-in">
+            <p class="section-number">02</p>
+            <h2 class="section-title">Unsere Imkerei</h2>
+            <p class="section-text">
+                Seit Generationen betreiben wir Imkerei aus Leidenschaft. Was als Hobby begann,
+                ist heute ein kleiner Familienbetrieb, der sich der artgerechten Bienenhaltung
+                und nachhaltigen Honigproduktion verschrieben hat.
+            </p>
+            <p class="section-text">
+                Unsere Bienenstöcke stehen an ausgewählten Standorten – fernab von Industrie
+                und intensiver Landwirtschaft. Hier finden die Bienen ein reiches Blütenangebot
+                und ideale Bedingungen für ein gesundes Volksleben.
+            </p>
+            <a href="#" class="section-link">Mehr über uns</a>
+        </div>
+    </section>
+
+    <!-- Section 3: Prozess -->
+    <section class="section section--left" id="prozess">
+        <img class="section-bg" src="img/imker/d9a3bf6f-2f66-4e10-a5dd-1d7fe91f0a90.jpg" alt="Honigwaben">
+        <div class="section-overlay section-overlay--left"></div>
+        <div class="section-content fade-in">
+            <p class="section-number">03</p>
+            <h2 class="section-title">Von der Blüte ins Glas</h2>
+            <p class="section-text">
+                Der Weg unseres Honigs beginnt lange vor der Ernte. Wir pflegen unsere Bienenvölker
+                das ganze Jahr über, achten auf natürliche Schwarmzyklen und verzichten auf
+                jede Form von Medikamenten, die nicht absolut notwendig sind.
+            </p>
+            <p class="section-text">
+                Die Ernte erfolgt nur, wenn die Waben vollständig verdeckelt sind – ein Zeichen
+                dafür, dass der Honig reif und die Feuchtigkeit optimal ist. Anschließend wird
+                schonend geschleudert, gefiltert und per Hand abgefüllt.
+            </p>
+            <a href="#" class="section-link">Unser Prozess</a>
+        </div>
+    </section>
+
+    <!-- Section 4: Nachhaltigkeit -->
+    <section class="section section--right">
+        <img class="section-bg" src="img/imker/f60b19bb-7e7f-4830-b952-89615e27e978.jpg" alt="Bienenstock im Garten">
+        <div class="section-overlay section-overlay--right"></div>
+        <div class="section-content fade-in">
+            <p class="section-number">04</p>
+            <h2 class="section-title">Nachhaltigkeit</h2>
+            <p class="section-text">
+                Bienen sind mehr als Honiglieferanten – sie sind unverzichtbare Bestäuber
+                und ein zentraler Baustein unseres Ökosystems. Deshalb sehen wir unsere
+                Imkerei auch als Beitrag zum Erhalt der Biodiversität.
+            </p>
+            <p class="section-text">
+                Wir arbeiten mit regionalen Partnern zusammen, verwenden recyclebare Gläser
+                und setzen auf kurze Lieferwege. So bleibt der ökologische Fußabdruck
+                unserer Produkte so klein wie möglich.
+            </p>
+            <a href="#" class="section-link">Unsere Werte</a>
+        </div>
+    </section>
+
+    <!-- Section 5: Kontakt -->
+    <section class="section section--center" id="kontakt">
+        <img class="section-bg" src="img/imker/d5ad1cfe-0d84-4c7f-b94d-1397492e81ed.jpg" alt="Imker bei der Arbeit">
+        <div class="section-overlay section-overlay--center"></div>
+        <div class="section-content fade-in">
+            <p class="section-number">05</p>
+            <h2 class="section-title">Besuchen Sie uns</h2>
+            <p class="section-text">
+                Neugierig geworden? Wir laden Sie herzlich ein, unsere Imkerei zu besuchen,
+                bei einer Führung mehr über die faszinierende Welt der Bienen zu erfahren
+                oder einfach ein Glas unseres Honigs zu probieren.
+            </p>
+            <p class="section-text">
+                Hofladen: Samstags 9–14 Uhr<br>
+                Führungen nach Vereinbarung
+            </p>
+            <a href="#" class="section-link">Kontakt aufnehmen</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3 class="footer-title">Imkerei</h3>
+                <p class="footer-text">
+                    Naturbelassener Honig aus eigener Imkerei.<br>
+                    Mit Liebe zum Detail und Respekt vor der Natur.
+                </p>
+            </div>
+            <div>
+                <h3 class="footer-title">Kontakt</h3>
+                <p class="footer-text">
+                    Musterstraße 123<br>
+                    12345 Musterstadt<br>
+                    info@imkerei-beispiel.de
+                </p>
+            </div>
+            <div>
+                <h3 class="footer-title">Öffnungszeiten</h3>
+                <p class="footer-text">
+                    Hofladen: Samstags 9–14 Uhr<br>
+                    Führungen: Nach Vereinbarung<br>
+                    Telefon: 0123 / 456789
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Imkerei. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation Scroll Effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for Fade-in Animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Smooth Scroll for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
